@@ -1,2 +1,5 @@
 #install debian
 wget http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.3.0-amd64-netinst.iso
+
+#
+VBoxManage modifyvm nemean_lion --natpf1 "ssh,tcp,,65535,,65535"
