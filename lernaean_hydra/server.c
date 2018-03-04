@@ -37,6 +37,7 @@ int         main(int argc, char **argv)
     char buf[1024];
     int portnum;
     int num;
+    int opt = 1;
     // int pid;
     // int sid;
 
@@ -63,6 +64,9 @@ int         main(int argc, char **argv)
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = INADDR_ANY;
     server.sin_port = htons(portnum);
+
+    setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
+                                                  &opt, sizeof(opt));
     bind(server_fd, (struct sockaddr *)&server, sizeof(server));
     listen(server_fd, 3);
 
@@ -76,6 +80,11 @@ int         main(int argc, char **argv)
     {
         client_socket = accept(server_fd, (struct sockaddr *)NULL, NULL);
         read(client_socket,buf, 1024);
+        if (strcmp(buf, "exit") == 0)
+        {
+            write(client_socket, "exiting...\n", sizeof("exiting...\n"));
+            exit (0);
+        }
         write(client_socket, "pong pong\n", sizeof("pong pong\n"));
     }
     return (0);
