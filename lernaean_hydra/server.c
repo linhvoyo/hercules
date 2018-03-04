@@ -6,7 +6,7 @@
 /*   By: linh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/02 11:38:59 by linh              #+#    #+#             */
-/*   Updated: 2018/03/03 08:45:32 by linh             ###   ########.fr       */
+/*   Updated: 2018/03/03 19:32:12 by linh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int         main(int argc, char **argv)
     int portnum;
     int num;
     int opt = 1;
-    // int pid;
-    // int sid;
 
     num = 0;
     if (argc > 3 || argc == 1)
@@ -66,7 +64,7 @@ int         main(int argc, char **argv)
     server.sin_port = htons(portnum);
 
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
-                                                  &opt, sizeof(opt));
+            &opt, sizeof(opt));
     bind(server_fd, (struct sockaddr *)&server, sizeof(server));
     listen(server_fd, 3);
 

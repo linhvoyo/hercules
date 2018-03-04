@@ -6,7 +6,7 @@
 /*   By: linh <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/03 07:31:15 by linh              #+#    #+#             */
-/*   Updated: 2018/03/03 10:51:05 by linh             ###   ########.fr       */
+/*   Updated: 2018/03/03 19:33:02 by linh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int main(int argc, char **argv)
         printf("no such host");
         return (0);
     }
-    bzero((char *) &server, sizeof(server));
     server.sin_family = AF_INET;
     server.sin_port = htons(atoi(argv[2]));
     memcpy(&server.sin_addr, host_server->h_addr, host_server->h_length);
