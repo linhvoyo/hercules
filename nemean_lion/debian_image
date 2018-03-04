@@ -1,5 +1,5 @@
 #install debian
 wget http://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.3.0-amd64-netinst.iso
 
-#
+#https://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host
 VBoxManage modifyvm nemean_lion --natpf1 "ssh,tcp,,65535,,65535"
