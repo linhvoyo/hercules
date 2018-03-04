@@ -60,6 +60,6 @@ int main(int argc, char **argv)
 
     read(client_socket,buf,1024);
     printf("recieved: %s", buf);
-   close(client_socket);
+    close(client_socket);
     return 0;
 }

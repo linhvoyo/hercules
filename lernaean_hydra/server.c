@@ -18,7 +18,18 @@
 #include <string.h>
 #include <stdlib.h>
 
-int main(int argc, char **argv)
+static void daemonize(void)
+{
+    if (fork())
+        exit(EXIT_SUCCESS);
+    if (fork())
+        exit(EXIT_SUCCESS);
+	close(0);
+	close(1);
+	setsid();
+}
+
+int         main(int argc, char **argv)
 {
     int server_fd;
     struct sockaddr_in server;
@@ -26,7 +37,8 @@ int main(int argc, char **argv)
     char buf[1024];
     int portnum;
     int num;
-    int pid;
+    // int pid;
+    // int sid;
 
     num = 0;
     if (argc > 3 || argc == 1)
@@ -53,22 +65,18 @@ int main(int argc, char **argv)
     server.sin_port = htons(portnum);
     bind(server_fd, (struct sockaddr *)&server, sizeof(server));
     listen(server_fd, 3);
+
+    if (num == 1)
+    {
+        printf("Deamonize process...\n");
+        daemonize();
+    }
+
     while (1)
     {
         client_socket = accept(server_fd, (struct sockaddr *)NULL, NULL);
-        if ((pid = fork()) < 0)
-            return (-1);
-        else if (pid == 0)
-        {
-            close(server_fd);
-            read(client_socket,buf, 1024);
-            // if (strcmp(buf, "ping") == 0)
-            //     write(client_socket, "pong pong\n", sizeof("pong pong\n"));
-            write(client_socket, "pong pong\n", sizeof("pong pong\n"));
-            exit (0);
-        }
-        if (num == 0)
-            break;
+        read(client_socket,buf, 1024);
+        write(client_socket, "pong pong\n", sizeof("pong pong\n"));
     }
     return (0);
 }
