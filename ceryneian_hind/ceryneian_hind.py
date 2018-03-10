@@ -1,6 +1,7 @@
+import os
 import sys
 import requests
-import os
+
 
 def usage():
     """
@@ -8,7 +9,17 @@ def usage():
     """
     if len(sys.argv) != 2:
         print "<usage> python ceryneian_hind.py file"
-        exit()
+        sys.exit(1)
+    try:
+        os.environ["client_id"]
+    except KeyError:
+        print "client_id doesn't exist"
+        sys.exit(1)
+    try:
+        os.environ["client_secret"]
+    except KeyError:
+        print "client_secret doesn't exist"
+        sys.exit(1)
 
 def connect_to_api():
     """
@@ -23,7 +34,8 @@ def connect_to_api():
         response = requests.post("https://api.intra.42.fr/oauth/token?%s" % ("&".join(credentials)))
     except requests.exceptions.RequestException as error_message:
         print error_message
-        sys.exit(1)
+        response = 0
+        return response, 0
     if response.status_code == 200:
         return response, 1
     elif response.status_code == 401:
