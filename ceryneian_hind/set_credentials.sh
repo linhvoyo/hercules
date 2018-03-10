@@ -1,0 +1,3 @@
+#!/bin/bash
+export client_id="cf2ccb4ca91db7a84c198d9ef4a7327662aacac3c9de91f1b667527cd01856a4"
+export client_secret="fc6966c1f8cb2019ebd4612bb3ea860d6835aae3277c15903b1e550dcb0205c5"

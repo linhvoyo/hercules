@@ -1,12 +1,13 @@
 import sys
 import requests
+import os
 
 def usage():
     """
     Error handling for params
     """
-    if len(sys.argv) != 4:
-        print "<usage> python ceryneian_hind.py file client_id client_secret"
+    if len(sys.argv) != 2:
+        print "<usage> python ceryneian_hind.py file"
         exit()
 
 def connect_to_api():
@@ -15,10 +16,14 @@ def connect_to_api():
     """
     credentials = [
         'grant_type=client_credentials',
-        'client_id=' + sys.argv[2],
-        'client_secret=' + sys.argv[3],
+        'client_id=' + os.environ["client_id"],
+        'client_secret=' + os.environ["client_secret"],
         ]
-    response = requests.post("https://api.intra.42.fr/oauth/token?%s" % ("&".join(credentials)))
+    try:
+        response = requests.post("https://api.intra.42.fr/oauth/token?%s" % ("&".join(credentials)))
+    except requests.exceptions.RequestException as error_message:
+        print error_message
+        sys.exit(1)
     if response.status_code == 200:
         return response, 1
     elif response.status_code == 401:
@@ -44,9 +49,8 @@ def locate_student(intra_id):
         print intra_id + "is an invalid intra_id ..."
         return 1
     else:
-        print "failed to get locationion... status code: " + location.status_code
+        print "failed to get location... status code: " + location.status_code
     return 0
-
 
 usage()
 INPUT_FILE = open(sys.argv[1])
