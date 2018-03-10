@@ -47,10 +47,13 @@ def locate_student(intra_id):
     """
     Use intra_id to locate student
     """
-    location = requests.get("https://api.intra.42.fr/v2/users/" + intra_id + \
-    "/locations?%s&%s" % ('access_token=' + RESPONSE.json()['access_token'], \
+    try:
+        location = requests.get("https://api.intra.42.fr/v2/users/" + intra_id + \
+        "/locations?%s&%s" % ('access_token=' + RESPONSE.json()['access_token'], \
                         'token_type=' + RESPONSE.json()['token_type']) \
                         + "&filter[active]=true")
+    except requests.exceptions.RequestException:
+        return 0
     if location.status_code == 200:
         if not location.json():
             print intra_id + " is not in"
