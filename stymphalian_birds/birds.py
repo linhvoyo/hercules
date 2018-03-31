@@ -3,9 +3,6 @@ import sys
 from git import Repo
 import shutil
 
-
-# directory = os.getcwd()
-
 """
 Current run command
     python birds.py fdf c
@@ -104,6 +101,8 @@ def create_python():
 if len(sys.argv) != 3:
     errors()
 PROJECT = sys.argv[1]
+if not sys.argv[1].isalnum():
+    errors()
 if sys.argv[2] == 'c':
     create_c()
 elif sys.argv[2] == 'python':
