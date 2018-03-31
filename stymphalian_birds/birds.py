@@ -76,22 +76,38 @@ def create_c():
     gitignore(c_gitignore)
     git_pull('https://github.com/linhvoyo/libft', 'libft')
 
+def errors():
+    """
+    Usage
+    """
+    print "usage: python birds.py <PROJECT NAME> <LANGUAGE>\n"
+    print "LANGUAGE = c or python"
+    sys.exit(1)
 
+def create_python():
+    """
+    Automating file creation for python
+    """
+    print ("Creating template for " + sys.argv[2]) + " ..."
+    # os.makedirs(PROJECT)
+    try:
+        os.makedirs(PROJECT)
+    except OSError:
+        print PROJECT + " folder already exists"
+        sys.exit(1)
+    py_file = open(PROJECT + '/' + PROJECT + '.py', 'w')
+    py_file.write('')
+    py_file.close()
+    py_gitignore = "# Byte-compiled / optimized / DLL files\n__pycache__/\n*.py[cod]\n*$py.class\n\n# C extensions\n*.so\n\n# Distribution / packaging\n.Python\nbuild/\ndevelop-eggs/\ndist/\ndownloads/\neggs/\n.eggs/\nlib/\nlib64/\nparts/\nsdist/\nvar/\nwheels/\n*.egg-info/\n.installed.cfg\n*.egg\nMANIFEST\n\n# PyInstaller\n#  Usually these files are written by a python script from a template\n#  before PyInstaller builds the exe, so as to inject date/other infos into it.\n*.manifest\n*.spec\n\n# Installer logs\npip-log.txt\npip-delete-this-directory.txt\n\n\n# Unit test / coverage reports\nhtmlcov/\n.tox/\n.coverage\n.coverage.*\n.cache\nnosetests.xml\ncoverage.xml\n*.cover\n.hypothesis/\n.pytest_cache/\n\n# Translations\n*.mo\n*.pot\n\n# Django stuff:\n*.log\nlocal_settings.py\ndb.sqlite3\n\n# Flask stuff:\ninstance/\n.webassets-cache\n\n\n# Scrapy stuff:\n.scrapy\n\n\n# Sphinx documentation\ndocs/_build/\n\n\n# PyBuilder\ntarget/\n\n# Jupyter Notebook\n.ipynb_checkpoints\n\n# pyenv\n.python-version\n\n# celery beat schedule file\ncelerybeat-schedule\n\n# SageMath parsed files\n*.sage.py\n\n# Environments\n.env\n.venv\nenv/\nvenv/\nENV/\nenv.bak/\nvenv.bak/\n\n# Spyder project settings\n.spyderproject\n.spyproject\n\n# Rope project settings\n.ropeproject\n\n# mkdocs documentation\n/site\n\n# mypy\n.mypy_cache/"
+    gitignore(py_gitignore)
+
+if len(sys.argv) != 3:
+    errors()
 PROJECT = sys.argv[1]
-if sys.argv[2] == "c":
+if sys.argv[2] == 'c':
     create_c()
-
-
-#Command line
-    python birds.py fdf c
-
-
-# length = len(sys.argv)
-#
-#
-# for i in range(3, length):
-#     if i == 'libft' or i == 'gnl'
-#         print
-#     print sys.argv[i]
-
-# print sys.argv[3]
+elif sys.argv[2] == 'python':
+    create_python()
+else:
+    sys.exit(1)
+    errors()
