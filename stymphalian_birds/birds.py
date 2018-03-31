@@ -101,7 +101,7 @@ def create_python():
 if len(sys.argv) != 3:
     errors()
 PROJECT = sys.argv[1]
-if not sys.argv[1].isalnum():
+if not sys.argv[1][0].isalnum():
     errors()
 if sys.argv[2] == 'c':
     create_c()
