@@ -109,5 +109,4 @@ if sys.argv[2] == 'c':
 elif sys.argv[2] == 'python':
     create_python()
 else:
-    sys.exit(1)
     errors()
