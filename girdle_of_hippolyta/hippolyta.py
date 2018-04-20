@@ -3,11 +3,6 @@ import sys
 import imaplib
 import email
 
-"""
-Use smtplib to send emails
-"""
-
-
 def send_email():
     """
     Use smtplib to send email
@@ -19,7 +14,6 @@ def send_email():
     server.login(sys.argv[2], sys.argv[3])
     print sys.argv[4]
     server.sendmail(sys.argv[2], sys.argv[4], 'Subject: help?!?!?!\nhelp me plox')
-
 
 def read_mail():
     """
