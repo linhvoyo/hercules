@@ -33,12 +33,16 @@ def read_mail():
         if part.get_content_type() == "text/plain":
             print part.get_payload(decode=True)
 
-if not (len(sys.argv) > 2 or sys.argv[1] == '--send' or sys.argv[1] == '--read'):
-    print "\nusage: python hippolyta.py <option> <you@gmail.com> <your_pass> " \
-        + "<to@email.com>\n\noptions:\n\t--send\n\t--read\n"
-elif sys.argv[1] == '--send':
-    print "sending mail to ...\n"
-    send_email()
-elif sys.argv[1] == '--read':
-    print "reading latest email ...\n"
-    read_mail()
+
+if len(sys.argv) < 2:
+	print "\nusage: python hippolyta.py <option> <you@gmail.com> <your_pass> " \
+	+ "<to@email.com>\n\noptions:\n\t--send\n\t--read\n"
+elif sys.argv[1] == '--send' and len(sys.argv) > 4:
+    	print "sending mail to ...\n"
+    	send_email()
+elif sys.argv[1] == '--read' and len(sys.argv) > 3:
+    	print "reading latest email ...\n"
+    	read_mail()
+else:
+	print "\nusage: python hippolyta.py <option> <you@gmail.com> <your_pass> " \
+	+ "<to@email.com>\n\noptions:\n\t--send\n\t--read\n"
